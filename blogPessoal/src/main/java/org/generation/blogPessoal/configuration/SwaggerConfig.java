@@ -28,19 +28,20 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("org.generation.blogPessoal.controller"))
 				.paths(PathSelectors.any()).build().apiInfo(metadata()).useDefaultResponseMessages(false)
-				.globalResponses(HttpMethod.GET, responseMessage()).globalResponses(HttpMethod.POST, responseMessage())
+				.globalResponses(HttpMethod.GET, responseMessage())
+				.globalResponses(HttpMethod.POST, responseMessage())
 				.globalResponses(HttpMethod.PUT, responseMessage())
 				.globalResponses(HttpMethod.DELETE, responseMessage());
 	}
 
 	public static ApiInfo metadata() {
 		return new ApiInfoBuilder().title("API - Blog Pessoal").description("Projeto API Spring - Blog Pessoal")
-				.version("1.0.0").license("Apache License Version 2.0").licenseUrl("https://github.com/rafaelq80")
+				.version("1.0.0").license("Apache License Version 2.0").licenseUrl("https://github.com/davansep")
 				.contact(contact()).build();
 	}
 
 	private static Contact contact() {
-		return new Contact("Rafael Queiróz", "https://github.com/rafaelq80", "rafaelproinfo@gmail.com");
+		return new Contact("Priscila Davanse", "https://github.com/davansep", "prisciladavanse@gmail.com");
 	}
 
 	private static List<Response> responseMessage() {

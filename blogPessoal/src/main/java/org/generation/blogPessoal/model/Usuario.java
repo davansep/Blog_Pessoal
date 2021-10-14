@@ -6,7 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * @author Priscila
@@ -22,7 +25,9 @@ public class Usuario {
 	@NotBlank
 	private String nome;
 
-	@Email
+	@ApiModelProperty(example = "email@email.com.br")
+	@NotNull(message = "O atributo E-mail é Obrigatório!")
+	@Email(message = "O atributo E-mail deve ser válido!")
 	private String email;
 
 	@NotBlank

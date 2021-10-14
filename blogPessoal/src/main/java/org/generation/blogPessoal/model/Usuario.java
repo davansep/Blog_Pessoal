@@ -6,23 +6,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * Classe espelho da tabela usuario no banco db_blogpessoal.
- * 
- * @author Turma34
- * @since 1.0
- *
- */
+import io.swagger.annotations.ApiModelProperty;
 
+/**
+ * @author Priscila
+ * @since 1.0
+ */
 @Entity
 public class Usuario {
 
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long idUsuario;
-	private @NotBlank String nome;
-	private @Email String email;
-	private @NotBlank @Size(min = 5, max = 100) String senha;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long idUsuario;
+
+	@NotBlank
+	private String nome;
+
+	@ApiModelProperty(example = "email@email.com.br")
+	@NotNull(message = "O atributo E-mail é Obrigatório!")
+	@Email(message = "O atributo E-mail deve ser válido!")
+	private String email;
+
+	@NotBlank
+	@Size(min = 5, max = 100)
+	private String senha;
 
 	public Long getIdUsuario() {
 		return idUsuario;

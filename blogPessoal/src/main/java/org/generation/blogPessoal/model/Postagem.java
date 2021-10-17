@@ -3,9 +3,12 @@ package org.generation.blogPessoal.model;
 import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * @author Priscila
+ * @since 1.0
+ */
 @Entity
 @Table(name = "postagem")
 public class Postagem {
@@ -26,8 +29,14 @@ public class Postagem {
 	private Date date = new java.sql.Date(System.currentTimeMillis());
 
 	@ManyToOne
-	@JsonIgnoreProperties("postagem")
-	private Tema tema;
+	@JoinColumn(name = "usuario_id")
+	@JsonIgnoreProperties({ "minhasPostagens" })
+	private Usuario criador;
+
+	@ManyToOne
+	@JoinColumn(name = "tema_id")
+	@JsonIgnoreProperties({ "postagens" })
+	private Tema temaRelacionado;
 
 	public long getId() {
 		return id;
@@ -61,11 +70,20 @@ public class Postagem {
 		this.date = date;
 	}
 
-	public Tema getTema() {
-		return tema;
+	public Usuario getCriador() {
+		return criador;
 	}
 
-	public void setTema(Tema tema) {
-		this.tema = tema;
+	public void setCriador(Usuario criador) {
+		this.criador = criador;
 	}
+
+	public Tema getTemaRelacionado() {
+		return temaRelacionado;
+	}
+
+	public void setTemaRelacionado(Tema temaRelacionado) {
+		this.temaRelacionado = temaRelacionado;
+	}
+
 }

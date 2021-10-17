@@ -1,6 +1,5 @@
 package org.generation.blogPessoal.controller;
 
-
 import java.util.List;
 
 import org.generation.blogPessoal.model.Postagem;
@@ -19,43 +18,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/postagens")
 @CrossOrigin("*")
+@RequestMapping("/postagens")
 public class PostagemController {
 
 	@Autowired
 	private PostagemRepository repository;
 
-	@GetMapping
-	public ResponseEntity<List<Postagem>> getAll(){
+	@GetMapping("/todas")
+	public ResponseEntity<List<Postagem>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Postagem> getByTd(@PathVariable long id){
-		return repository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<Postagem> getByTd(@PathVariable Long id) {
+		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 	}
-	
-	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
-		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
-	}	
-	
-    @PostMapping
-	public ResponseEntity<Postagem> post(@RequestBody Postagem postagem){
-    	return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
-	}
-    
-    @PutMapping
-	public ResponseEntity<Postagem> put(@RequestBody Postagem postagem){
-    	return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
-	}
-    
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable long id) {
-    	repository.deleteById(id);
-    }
-}
 
+	@GetMapping("/title/{title}")
+	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo) {
+		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
+	}
+
+	@PostMapping
+	public ResponseEntity<Postagem> post(@RequestBody Postagem postagem) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
+	}
+
+	@PutMapping
+	public ResponseEntity<Postagem> put(@RequestBody Postagem postagem) {
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
+		repository.deleteById(id);
+	}
+}
